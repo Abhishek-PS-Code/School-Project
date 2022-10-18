@@ -1,26 +1,31 @@
-package com.demo.udemy.eazyschool.controller;
+package com.demo.udemy.eazybytes.eazyschool.controller;
 
-import com.demo.udemy.eazyschool.model.Holiday;
+import com.demo.udemy.eazybytes.eazyschool.model.Holiday;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Controller
-public class HolidayController {
+public class HolidaysController {
 
-    @GetMapping("/holidays")
-    public String displayHolidays(@RequestParam(required = false) boolean festival,
-                                  @RequestParam(required = false) boolean federal,
-                                  Model model) {
-
-        model.addAttribute("festival",festival);
-        model.addAttribute("federal",federal);
-
+    @GetMapping("/holidays/{display}")
+    public String displayHolidays(@PathVariable String display,Model model) {
+        if(null != display && display.equals("all")){
+            model.addAttribute("festival",true);
+            model.addAttribute("federal",true);
+        }else if(null != display && display.equals("federal")){
+            model.addAttribute("federal",true);
+        }else if(null != display && display.equals("festival")){
+            model.addAttribute("festival",true);
+        }
         List<Holiday> holidays = Arrays.asList(
                 new Holiday(" Jan 1 ","New Year's Day", Holiday.Type.FESTIVAL),
                 new Holiday(" Oct 31 ","Halloween", Holiday.Type.FESTIVAL),
@@ -38,4 +43,5 @@ public class HolidayController {
         }
         return "holidays.html";
     }
+
 }

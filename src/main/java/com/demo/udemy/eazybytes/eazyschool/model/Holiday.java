@@ -1,9 +1,7 @@
-package com.demo.udemy.eazyschool.model;
+package com.demo.udemy.eazybytes.eazyschool.model;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import java.lang.reflect.Type;
 @Data
 public class Holiday {
 
@@ -11,7 +9,7 @@ public class Holiday {
     private final String reason;
     private final Type type;
 
-    public enum Type{
+    public enum Type {
         FESTIVAL, FEDERAL
     }
 }
